@@ -1,0 +1,18 @@
+version: "1.0"
+services:
+  mongo:
+    image: mongo:3.2.4
+    ports:
+    - 27017:27017
+    command: --smallfiles
+    
+# APP  ***************************************************************************************
+  spring-boot-mongo-docker:
+    image: fredy777x/calculator-appgate
+    ports:
+    - 8080:8080
+    links:
+    - mongo
+    entrypoint: "java -jar -Dspring.profiles.active=dev app.jar"
+    depends_on:
+    - mongo 

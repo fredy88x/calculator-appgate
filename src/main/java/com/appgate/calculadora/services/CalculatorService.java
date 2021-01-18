@@ -52,6 +52,11 @@ public class CalculatorService {
 			result = operatorRepository.findByIdSession(idSession).map(Operator::getOperator).reduce(0, (x1,x2)->x1+x2);
 			break;
 		}
+		
+		Operator resultOperation = new Operator();
+		resultOperation.setIdSession(idSession);
+		resultOperation.setOperator(result.block());
+		operatorRepository.save(resultOperation);
 		return result;
 	}
 	
